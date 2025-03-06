@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Content\AnalisisBeratBadanController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -14,3 +15,8 @@ Route::post('post-registration', [AuthController::class, 'postRegistration'])->n
 // Route::get('dashboard', [AuthController::class, 'dashboard']);
 Route::middleware(['auth'])->get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+// Route for content
+Route::middleware(['auth'])->get('analisis', [AnalisisBeratBadanController::class, 'index'])->name('analisis');
+Route::middleware(['auth'])->get('result', [AnalisisBeratBadanController::class, 'result'])->name('result');
+Route::middleware(['auth'])->post('post-analisis', [AnalisisBeratBadanController::class, 'postAnalisis'])->name('analisis.post');

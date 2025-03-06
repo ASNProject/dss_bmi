@@ -76,7 +76,7 @@
                         </div>
                         <p class="card-text" style="font-size: 14px">Pantau berat badan dan analisis pola hidup Anda untuk mencapai kesehatan yang optimal.</p>
                         <div>
-                            <a href="#" class="btn btn-primary">Lihat Detail</a>
+                            <a href="{{ route('analisis') }}" class="btn btn-primary">Lihat Detail</a>
                         </div>
                     </div>
                   </div>
