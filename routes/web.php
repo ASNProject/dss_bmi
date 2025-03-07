@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Content\AnalisisBeratBadanController;
+use App\Http\Controllers\Api\InputDataController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');

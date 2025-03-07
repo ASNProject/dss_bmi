@@ -51,16 +51,11 @@
             <div class="form-group">
                 <h6>Riwayat Penyakit</h6>
                 <select name="disease_history[]" id="disease_history" class="form-control @error('disease_history') is-invalid @enderror" required>
-                    <option value="" disabled>Pilih riwayat penyakit yang pernah dialami</option>
-                    <option value="1">Tidak Ada Penyakit</option>
-                    <option value="2">Hipertensi (Tekanan Darah Tinggi)</option>
-                    <option value="3">Diabetes</option>
-                    <option value="4">Penyakit Jantung</option>
-                    <option value="5">Stroke</option>
-                    <option value="6">Kanker</option>
-                    <option value="0">Lainnya</option>
+                    <option value="0" disabled>Pilih riwayat penyakit yang pernah dialami</option>
+                    @foreach ($diseases as $disease)
+                        <option value="{{ $disease->id }}">{{ $disease->disease }}</option>
+                    @endforeach
                 </select>                
-                
                 @error('disease_history')
                     <div class="alert alert-danger mt-2">
                         {{ $message }}
@@ -68,7 +63,7 @@
                 @enderror
             </div>
 
-            <div class="form-group">
+            <div class="form-group" required>
                 <h6>Riwayat penyakit yang dipilih:</h6>
                 <ul id="selectedDiseasesList"></ul>
             </div>
@@ -84,15 +79,11 @@
             </div>
             <div class="form-group">
                 <h6>Pola Makan</h6>
-                <select name="eating_habits[]" id="eating_habits" class="form-control @error('eating_habits') is-invalid @enderror" required>
+                <select name="eating_habits[]" id="eating_habit" class="form-control @error('eating_habits') is-invalid @enderror">
                     <option value="" disabled selected>Pilih Pola Makan</option>
-                    <option value="1">Seimbang (makanan bergizi seimbang)</option>
-                    <option value="2">Makanan Cepat Saji</option>
-                    <option value="3">Vegetarian</option>
-                    <option value="4">Vegan</option>
-                    <option value="5">Makanan Ringan (Junk Food)</option>
-                    <option value="6">Tidak Teratur</option>
-                    <option value="0">Lainnya</option>
+                    @foreach($eatingHabits as $habit)
+                        <option value="{{ $habit->id }}">{{ $habit->eating_habit }}</option>
+                    @endforeach
                 </select>                
                 
                 @error('eating_habits')
@@ -102,22 +93,18 @@
                 @enderror
             </div>
 
-            <div class="form-group">
+            <div class="form-group" required>
                 <h6>Pola makan yang dipilih:</h6>
-                <ul id="selectedEatingHabitsList"></ul>
+                <ul id="selectedEatingHabitList"></ul>
             </div>
 
             <div class="form-group">
                 <h6>Pola Tidur</h6>
-                <select name="sleep_patterns[]" id="sleep_patterns" class="form-control @error('sleep_patterns') is-invalid @enderror" required>
+                <select name="sleep_patterns[]" id="sleep_pattern" class="form-control @error('sleep_patterns') is-invalid @enderror">
                     <option value="" disabled selected>Pilih Pola Tidur</option>
-                    <option value="1">Teratur (tidur dan bangun pada waktu yang sama setiap hari)</option>
-                    <option value="2">Tidak Teratur (waktu tidur dan bangun yang berubah-ubah)</option>
-                    <option value="3">Insomnia (kesulitan tidur)</option>
-                    <option value="4">Tidur Berlebihan (lebih dari 9 jam per hari)</option>
-                    <option value="5">Tidur Singkat (kurang dari 6 jam per hari)</option>
-                    <option value="6">Tidur Siang</option>
-                    <option value="0">Lainnya</option>
+                    @foreach($sleepPatterns as $pattern)
+                        <option value="{{ $pattern->id }}">{{ $pattern->sleep_pattern }}</option>
+                    @endforeach
                 </select>                
                 
                 @error('sleep_patterns')
@@ -127,52 +114,16 @@
                 @enderror
             </div>
 
-            <div class="form-group">
+            <div class="form-group" required>
                 <h6>Pola tidur yang dipilih:</h6>
-                <ul id="selectedSleepingPatternsList"></ul>
+                <ul id="selectedSleepPatternList"></ul>
             </div>
 
             <button type="submit" class="btn btn-primary w-100 text-white font-weight-bold">{{ __('Selesai') }}</button>
         </form>
     </div>
-    <script>
-        function updateSelectedList(dropdownId, listId) {
-            var selectedValues = Array.from(document.getElementById(dropdownId).selectedOptions).map(option => option.text);
-            var selectedList = document.getElementById(listId);
-    
-            selectedValues.forEach(function(value) {
-                if (![...selectedList.children].some(item => item.textContent === value)) {
-                    var listItem = document.createElement('li');
-                    listItem.textContent = value;
-
-                    var removeButton = document.createElement('a');
-                    removeButton.href = '#';
-                    removeButton.textContent = ' Hapus';
-                    removeButton.classList.add('text-danger');
-                    
-                    removeButton.addEventListener('click', function(event) {
-                        event.preventDefault(); // Mencegah pengalihan halaman
-                        listItem.remove(); // Menghapus item dari list
-                    });
-                    
-                    listItem.appendChild(removeButton);
-                    selectedList.appendChild(listItem);
-                }
-
-            });
-        }
-    
-        document.getElementById('disease_history').addEventListener('change', function() {
-            updateSelectedList('disease_history', 'selectedDiseasesList');
-        });
-    
-        document.getElementById('eating_habits').addEventListener('change', function() {
-            updateSelectedList('eating_habits', 'selectedEatingHabitsList');
-        });
-    
-        document.getElementById('sleep_patterns').addEventListener('change', function() {
-            updateSelectedList('sleep_patterns', 'selectedSleepingPatternsList');
-        });
-    </script>
 </body>
+@push('scripts')
+    <script src="{{ asset('js/form-handler.js') }}"></script>
+@endpush
 @endsection
