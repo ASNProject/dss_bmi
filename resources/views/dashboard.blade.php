@@ -108,7 +108,7 @@
                         </div>
                         <p class="card-text" style="font-size: 14px">Dapatkan rekomendasi kegiatan harian yang disesuaikan dengan gaya hidup dan tujuan Anda.</p>
                         <div>
-                            <a href="#" class="btn btn-purple">Lihat Detail</a>
+                            <a href="{{ route('recommendation') }}" class="btn btn-purple">Lihat Detail</a>
                         </div>
                     </div>
                   </div>

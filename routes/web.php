@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Content\AnalisisBeratBadanController;
 use App\Http\Controllers\Api\InputDataController;
+use App\Http\Controllers\Content\RecommendationController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -21,3 +22,4 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->get('analisis', [AnalisisBeratBadanController::class, 'index'])->name('analisis');
 Route::middleware(['auth'])->get('result', [AnalisisBeratBadanController::class, 'result'])->name('result');
 Route::middleware(['auth'])->post('post-analisis', [AnalisisBeratBadanController::class, 'postAnalisis'])->name('analisis.post');
+Route::middleware(['auth'])->get('recommendation', [RecommendationController::class, 'index'])->name('recommendation');

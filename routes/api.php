@@ -13,3 +13,4 @@ Route::apiResource('/eating-habit', App\Http\Controllers\Api\EatingHabitControll
 Route::apiResource('/sleep-pattern', App\Http\Controllers\Api\SleepPatternController::class);
 Route::apiResource('/eat-recommendation', App\Http\Controllers\Api\EatRecommendationController::class);
 Route::apiResource('/sleep-recommendation', App\Http\Controllers\Api\SleepRecommendationController::class);
+Route::apiResource('/activity-recommendation', App\Http\Controllers\Api\ActivityRecommendationController::class);

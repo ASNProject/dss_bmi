@@ -10,6 +10,8 @@ class bmiData extends Model
 {
     use HasFactory;
 
+    protected $table = 'bmi_data';
+
     // Add user_id to fillable
     protected $fillable = [
         'user_id',
@@ -27,5 +29,6 @@ class bmiData extends Model
         'sleep_patterns',
         'eat_recommendation',
         'sleep_recommendation',
+        'physical_activity',
     ];
 }
