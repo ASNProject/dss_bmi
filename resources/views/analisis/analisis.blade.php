@@ -36,11 +36,20 @@
                 @enderror
             </div>
             <div class="form-group">
+                <h6>Usia</h6>
+                <input type="number" class="form-control @error('age') is-invalid @enderror" name="age" id="age" placeholder="Masukkan usia" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                @error('age')
+                    <div class="alert alert-danger mt-2">
+                        {{ $message }}
+                    </div>    
+                @enderror
+            </div>
+            <div class="form-group">
                 <h6>Jenis Kelamin</h6>
                 <select name="gender" id="gender" class="form-control @error('gender') is-invalid @enderror" required>
                     <option value="" disabled selected>Pilih jenis kelamin</option>
-                    <option value="1">Laki-laki</option>
-                    <option value="2">Perempuan</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
                 </select>                
                 @error('gender')
                     <div class="alert alert-danger mt-2">
@@ -50,8 +59,8 @@
             </div>
             <div class="form-group">
                 <h6>Riwayat Penyakit</h6>
-                <select name="disease_history[]" id="disease_history" class="form-control @error('disease_history') is-invalid @enderror" required>
-                    <option value="0" disabled>Pilih riwayat penyakit yang pernah dialami</option>
+                <select name="disease_history[]" id="disease_history" class="form-control @error('disease_history') is-invalid @enderror">
+                    <option value="" disabled selected>Pilih riwayat penyakit yang pernah dialami</option>
                     @foreach ($diseases as $disease)
                         <option value="{{ $disease->id }}">{{ $disease->disease }}</option>
                     @endforeach
@@ -118,6 +127,11 @@
                 <h6>Pola tidur yang dipilih:</h6>
                 <ul id="selectedSleepPatternList"></ul>
             </div>
+
+            <input type="hidden" name="disease_history_input" id="diseaseHistoryInput">
+            <input type="hidden" name="eating_habits_input" id="eatingHabitInput">
+            <input type="hidden" name="sleep_patterns_input" id="sleepPatternInput">
+
 
             <button type="submit" class="btn btn-primary w-100 text-white font-weight-bold">{{ __('Selesai') }}</button>
         </form>

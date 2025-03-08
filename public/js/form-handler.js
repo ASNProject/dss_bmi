@@ -87,6 +87,8 @@ function updateSelectedDiseasesList() {
             listElement.appendChild(li);
         }
     });
+
+    document.getElementById('diseaseHistoryInput').value = JSON.stringify(diseaseHistory);
 }
 
 function updateSelectedEatingHabitList() {
@@ -110,6 +112,8 @@ function updateSelectedEatingHabitList() {
             listElement.appendChild(li);
         }
     });
+    document.getElementById('eatingHabitInput').value = JSON.stringify(eatingHabit);
+
 }
 
 function updateSelectedSleepPatternList() {
@@ -133,6 +137,8 @@ function updateSelectedSleepPatternList() {
             listElement.appendChild(li);
         }
     });
+    document.getElementById('sleepPatternInput').value = JSON.stringify(sleepPattern);
+
 }
 
 function removeDisease(diseaseId) {
@@ -176,3 +182,12 @@ function removeSleepPattern(sleepPatternId) {
     updateSelectedSleepPatternList();
     console.log(sleepPattern); 
 }
+
+
+document.querySelector('form').addEventListener('submit', function (e) {
+    let confirmed = confirm('Apakah Anda yakin data yang dimasukkan sudah benar?');
+
+    if (!confirmed) {
+        e.preventDefault();
+    }
+});
