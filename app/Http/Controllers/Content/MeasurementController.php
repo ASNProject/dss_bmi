@@ -36,23 +36,29 @@ class MeasurementController extends Controller
     
             if ($bmiRecords->count() > 1) {
                 $firstWeight = $bmiRecords->first()->weight;
-                $lastWeight = $bmiRecords->last()->weight;
+                $lastWeight = $bmiRecords->skip(1)->first()->weight;
                 $totalWeightLoss = $firstWeight - $lastWeight;
-    
+
+   
                 $firstBmi = $bmiRecords->first()->bmi;
-                $lastBmi = $bmiRecords->last()->bmi;
+                $lastBmi = $bmiRecords->skip(1)->first()->bmi;
                 $totalBmiLoss = $firstBmi - $lastBmi;
     
-                // Menentukan tren
-                if ($totalWeightLoss > 0 && $totalBmiLoss > 0) {
-                    $trend = "Penururan Berat Badan";
-                    $title = "Penurunan";
-                } elseif ($totalWeightLoss < 0 && $totalBmiLoss < 0) {
+                if ($firstWeight > $lastWeight && $firstBmi > $lastBmi) {
                     $trend = "Peningkatan Berat Badan";
                     $title = "Peningkatan";
-                } else {
-                    $trend = "Penurunan Berat Badan Konsisten";
+                } elseif ($firstWeight < $lastWeight && $firstBmi < $lastBmi) {
+                    $trend = "Penurunan Berat Badan";
                     $title = "Penurunan";
+                } elseif ($firstWeight > $lastWeight && $firstBmi < $lastBmi) {
+                    $trend = "Peningkatan Berat Badan Tidak Konsisten";
+                    $title = "Peningkatan";
+                } elseif ($firstWeight < $lastWeight && $firstBmi > $lastBmi) {
+                    $trend = "Penurunan Berat Badan Tidak Konsisten";
+                    $title = "Penurunan";
+                } else {
+                    $trend = "Tidak Ada Tren Jelas";
+                    $title = "Tidak Jelas";
                 }
             }
 

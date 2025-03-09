@@ -86,17 +86,17 @@
         var chart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: {!! json_encode($data['dates']) !!},
+                labels: {!! json_encode($data['dates']) !!}.reverse(),
                 datasets: [
                     {
                         label: 'BMI',
                         borderColor: 'blue',
-                        data: {!! json_encode($data['bmi']) !!}
+                        data: {!! json_encode($data['bmi']) !!}.reverse()
                     },
                     {
                         label: 'Berat (kg)',
                         borderColor: 'green',
-                        data: {!! json_encode($data['weight']) !!}
+                        data: {!! json_encode($data['weight']) !!}.reverse()
                     }
                 ]
             },
