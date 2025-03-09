@@ -6,6 +6,8 @@ use App\Http\Controllers\Content\AnalisisBeratBadanController;
 use App\Http\Controllers\Api\InputDataController;
 use App\Http\Controllers\Content\RecommendationController;
 use App\Http\Controllers\Content\MeasurementController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -25,3 +27,8 @@ Route::middleware(['auth'])->get('result', [AnalisisBeratBadanController::class,
 Route::middleware(['auth'])->post('post-analisis', [AnalisisBeratBadanController::class, 'postAnalisis'])->name('analisis.post');
 Route::middleware(['auth'])->get('recommendation', [RecommendationController::class, 'index'])->name('recommendation');
 Route::middleware(['auth'])->get('measurement', [MeasurementController::class, 'index'])->name('measurement');
+
+Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('password.reset');
+Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');

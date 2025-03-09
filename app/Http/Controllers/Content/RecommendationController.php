@@ -35,9 +35,9 @@ class RecommendationController extends Controller
                 $bmiData = bmiData::where('user_name', Auth::user()->name)->latest()->first();
             }
     
-            if (!$bmiData) {
-                return redirect()->route('dashboard')->with('error', 'Data BMI tidak ditemukan.');
-            }
+            // if (!$bmiData) {
+            //     return redirect()->route('dashboard')->with('error', 'Data BMI tidak ditemukan.');
+            // }
     
             return view('recommendation.recommendation', [
                 'bmiData' => $bmiData,

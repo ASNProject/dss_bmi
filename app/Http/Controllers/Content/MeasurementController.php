@@ -31,7 +31,7 @@ class MeasurementController extends Controller
 
             $totalWeightLoss = 0;
             $totalBmiLoss = 0;
-            $trend = "Tidak ada data";
+            $trend = "Belum ada pembanding";
             $title = "";
     
             if ($bmiRecords->count() > 1) {
