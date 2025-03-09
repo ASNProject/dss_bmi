@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Content\AnalisisBeratBadanController;
 use App\Http\Controllers\Api\InputDataController;
 use App\Http\Controllers\Content\RecommendationController;
+use App\Http\Controllers\Content\MeasurementController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -23,3 +24,4 @@ Route::middleware(['auth'])->get('analisis', [AnalisisBeratBadanController::clas
 Route::middleware(['auth'])->get('result', [AnalisisBeratBadanController::class, 'result'])->name('result');
 Route::middleware(['auth'])->post('post-analisis', [AnalisisBeratBadanController::class, 'postAnalisis'])->name('analisis.post');
 Route::middleware(['auth'])->get('recommendation', [RecommendationController::class, 'index'])->name('recommendation');
+Route::middleware(['auth'])->get('measurement', [MeasurementController::class, 'index'])->name('measurement');

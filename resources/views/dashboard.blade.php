@@ -92,7 +92,7 @@
                         </div>
                         <p class="card-text" style="font-size: 14px">Monitoring aktivitas harian, pola makan, dan kebiasaan untuk meningkatkan kualitas hidup Anda.</p>
                         <div>
-                            <a href="#" class="btn btn-success">Lihat Detail</a>
+                            <a href="{{ route('measurement') }}" class="btn btn-success">Lihat Detail</a>
                         </div>
                     </div>
                   </div>
