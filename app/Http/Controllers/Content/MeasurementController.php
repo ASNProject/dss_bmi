@@ -25,7 +25,10 @@ class MeasurementController extends Controller
             $bmiRecords = bmiData::where('user_name', $userName)->orderBy('created_at', 'desc')->get();
             foreach ($bmiRecords as $record) {
                 $record->physical_activity = json_decode($record->physical_activity, true) ?? explode("\n", $record->physical_activity);
+                $record->activity_pattern = json_decode($record->activity_pattern, true) ?? explode("\n", $record->activity_pattern);
                 $record->eat_recommendation = json_decode($record->eat_recommendation, true) ?? explode("\n", $record->eat_recommendation);
+                $record->eat_pattern = json_decode($record->eat_pattern, true) ?? explode("\n", $record->eat_pattern);
+                $record->food_restriction = json_decode($record->food_restriction, true) ?? explode("\n", $record->food_restriction);
                 $record->sleep_recommendation = json_decode($record->sleep_recommendation, true) ?? explode("\n", $record->sleep_recommendation);
             }
 
@@ -70,6 +73,13 @@ class MeasurementController extends Controller
                 'totalBmiLoss' => $totalBmiLoss,
                 'trend' => $trend,
                 'title' => $title,
+                'pysical_activity' => $bmiRecords->pluck('physical_activity')->first(),
+                'activity_pattern' => $bmiRecords->pluck('activity_pattern')->first(),
+                'eat_recommendation' => $bmiRecords->pluck('eat_recommendation')->first(),
+                'eat_patterns' => $bmiRecords->pluck('eat_pattern')->first(),
+                'food_restriction' => $bmiRecords->pluck('food_restriction')->first(),
+                'sleep_recommendation' => $bmiRecords->pluck('sleep_recommendation')->first(),
+                'calorie' => $bmiRecords->pluck('calorie')->first(),
             ];
             return view('measurement.measurement', compact('data', 'bmiRecords'));
         }

@@ -59,12 +59,13 @@
             </div>
             <div class="form-group">
                 <h6>Riwayat Penyakit</h6>
-                <select name="disease_history[]" id="disease_history" class="form-control @error('disease_history') is-invalid @enderror">
+                {{-- <select name="disease_history[]" id="disease_history" class="form-control @error('disease_history') is-invalid @enderror">
                     <option value="" disabled selected>Pilih riwayat penyakit yang pernah dialami</option>
                     @foreach ($diseases as $disease)
                         <option value="{{ $disease->id }}">{{ $disease->disease }}</option>
                     @endforeach
-                </select>                
+                </select>                 --}}
+                <textarea class="form-control @error('disease_history') is-invalid @enderror" name="disease_history" id="disease_history" placeholder="Tuliskan riwayat penyakit" rows="4"></textarea>
                 @error('disease_history')
                     <div class="alert alert-danger mt-2">
                         {{ $message }}
@@ -72,14 +73,20 @@
                 @enderror
             </div>
 
-            <div class="form-group" required>
+            {{-- <div class="form-group" required>
                 <h6>Riwayat penyakit yang dipilih:</h6>
                 <ul id="selectedDiseasesList"></ul>
-            </div>
+            </div> --}}
 
             <div class="form-group">
                 <h6>Penyakit Saat Ini</h6>
-                <textarea class="form-control @error('disease') is-invalid @enderror" name="disease" id="disease" placeholder="Tuliskan kondisi kesehatan saat ini" rows="4" required></textarea>
+                {{-- <textarea class="form-control @error('disease') is-invalid @enderror" name="disease" id="disease" placeholder="Tuliskan kondisi kesehatan saat ini" rows="4" required></textarea> --}}
+                <select name="disease" id="disease" class="form-control @error('disease') is-invalid @enderror">
+                    <option value="" disabled selected>Pilih riwayat penyakit yang pernah dialami</option>
+                    @foreach ($diseases as $disease)
+                        <option value="{{ $disease->disease }}">{{ $disease->disease }}</option>
+                    @endforeach
+                </select>                
                 @error('disease')
                     <div class="alert alert-danger mt-2">
                         {{ $message }}
@@ -88,49 +95,49 @@
             </div>
             <div class="form-group">
                 <h6>Pola Makan</h6>
-                <select name="eating_habits[]" id="eating_habit" class="form-control @error('eating_habits') is-invalid @enderror">
+                <select name="eating_habit" id="eating_habit" class="form-control @error('eating_habit') is-invalid @enderror" required>
                     <option value="" disabled selected>Pilih Pola Makan</option>
                     @foreach($eatingHabits as $habit)
-                        <option value="{{ $habit->id }}">{{ $habit->eating_habit }}</option>
+                        <option value="{{ $habit->eating_habit }}">{{ $habit->eating_habit }}</option>
                     @endforeach
                 </select>                
                 
-                @error('eating_habits')
+                @error('eating_habit')
                     <div class="alert alert-danger mt-2">
                         {{ $message }}
                     </div>    
                 @enderror
             </div>
 
-            <div class="form-group" required>
+            {{-- <div class="form-group" required>
                 <h6>Pola makan yang dipilih:</h6>
                 <ul id="selectedEatingHabitList"></ul>
-            </div>
+            </div> --}}
 
             <div class="form-group">
                 <h6>Pola Tidur</h6>
-                <select name="sleep_patterns[]" id="sleep_pattern" class="form-control @error('sleep_patterns') is-invalid @enderror">
+                <select name="sleep_pattern" id="sleep_pattern" class="form-control @error('sleep_pattern') is-invalid @enderror" required>
                     <option value="" disabled selected>Pilih Pola Tidur</option>
                     @foreach($sleepPatterns as $pattern)
-                        <option value="{{ $pattern->id }}">{{ $pattern->sleep_pattern }}</option>
+                        <option value="{{ $pattern->sleep_pattern }}">{{ $pattern->sleep_pattern }}</option>
                     @endforeach
                 </select>                
                 
-                @error('sleep_patterns')
+                @error('sleep_pattern')
                     <div class="alert alert-danger mt-2">
                         {{ $message }}
                     </div>    
                 @enderror
             </div>
 
-            <div class="form-group" required>
+            {{-- <div class="form-group" required>
                 <h6>Pola tidur yang dipilih:</h6>
                 <ul id="selectedSleepPatternList"></ul>
-            </div>
+            </div> --}}
 
-            <input type="hidden" name="disease_history_input" id="diseaseHistoryInput">
+            {{-- <input type="hidden" name="disease_history_input" id="diseaseHistoryInput">
             <input type="hidden" name="eating_habits_input" id="eatingHabitInput">
-            <input type="hidden" name="sleep_patterns_input" id="sleepPatternInput">
+            <input type="hidden" name="sleep_patterns_input" id="sleepPatternInput"> --}}
 
 
             <button type="submit" class="btn btn-primary w-100 text-white font-weight-bold">{{ __('Selesai') }}</button>

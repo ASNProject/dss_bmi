@@ -12,51 +12,77 @@
                 <canvas id="myChart"></canvas>
             </div>
             <div class="col-12 mb-5">
-                <div class="table-responsive" style="max-height: 700px; overflow-y: auto;">
-                    <table class="table table-bordered">
+                <div class="table-responsive" style="max-height: 500px;">
+                    <table class="table table-bordered" style="width: 100%; table-layout: auto;">
                         <thead class="table-secondary">
                             <tr>
-                                <th scope="col" class="text-center align-middle">Tanggal</th>
-                                <th scope="col" class="text-center align-middle">BMI</th>
-                                <th scope="col" class="text-center align-middle">Berat (kg)</th>
-                                <th scope="col" class="text-center align-middle">Kategori</th>
-                                <th scope="col" class="text-center align-middle">Aktivitas</th>
-                                <th scope="col" class="text-center align-middle">Rekomendasi Pola Makan</th>
-                                <th scope="col" class="text-center align-middle">Rekomendasi Pola Tidur</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">Tanggal</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">BMI</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">Berat (kg)</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">Kategori</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">Aktivitas</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">Rekomendasi Pola Aktivitas</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">Rekomendasi Pola Makan</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">Rekomendasi Makanan</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">Larangan Makanan</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">Rekomendasi Pola Tidur</th>
+                                <th style="white-space: nowrap" scope="col" class="text-center align-middle">Rekomendasi Kebutuhan Kalori Perhari</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($bmiRecords as $record)
                                 <tr>
-                                    <td>{{ \Carbon\Carbon::parse($record->created_at)->format('d-m-Y') }}</td>
-                                    <td>{{ $record->bmi }}</td>
-                                    <td>{{ $record->weight }}</td>
-                                    <td>{{ $record->bmi_category }}</td>
-                                    <td>
-                                        <ul>
+                                    <td style="white-space: nowrap; text-align: center;">{{ \Carbon\Carbon::parse($record->created_at)->format('d-m-Y') }}</td>
+                                    <td style="white-space: nowrap; text-align: center;">{{ $record->bmi }}</td>
+                                    <td style="white-space: nowrap; text-align: center;">{{ $record->weight }}</td>
+                                    <td style="white-space: nowrap; text-align: center;">{{ $record->bmi_category }}</td>
+                                    <td style="white-space: nowrap">
+                                        <div>
                                             @foreach($record->physical_activity as $activity)
-                                                <li>{{ $activity }}</li>
+                                                <div>{{ $activity }}</div>
                                             @endforeach
-                                        </ul>
+                                        </div>
                                     </td>
-                                    <td>
-                                        <ul>
-                                            @foreach($record->eat_recommendation as $eat)
-                                                <li>{{ $eat }}</li>
+                                    <td style="white-space: nowrap"> 
+                                        <div>
+                                            @foreach($record->activity_pattern as $activity)
+                                                <div>{{ $activity }}</div>
                                             @endforeach
-                                        </ul>
+                                        </div>
                                     </td>
-                                    <td>
-                                        <ul>
+                                    <td style="white-space: nowrap">
+                                        <div>
+                                            @foreach($record->eat_pattern as $eat_pattern)
+                                                <div>{{ $eat_pattern }}</div>
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <div>
+                                            @foreach($record->eat_recommendation as $eat_recommendation)
+                                                <div>{{ $eat_recommendation }}</div>
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <div>
+                                            @foreach($record->food_restriction as $food_restriction)
+                                                <div>{{ $food_restriction }}</div>
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <div>
                                             @foreach($record->sleep_recommendation as $sleep)
-                                                <li>{{ $sleep }}</li>
+                                                <div>{{ $sleep }}</div>
                                             @endforeach
-                                        </ul>
+                                        </div>
                                     </td>
+                                    <td style="white-space: nowrap; text-align: center;">{{ $record->calorie }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">Tidak ada data pengukuran tersedia.</td>
+                                    <td colspan="9" class="text-center">Tidak ada data pengukuran tersedia.</td>
                                 </tr>
                             @endforelse
                         </tbody>

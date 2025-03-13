@@ -35,6 +35,9 @@
                         <h6 class="mr-1">Status BMI Anda:</h6>
                         <h6 style="color: deepskyblue">{{ $bmiData->bmi_category }} ({{ $bmiData->bmi }})</h6>
                     </div>
+                    <div>
+                        <h6 class="mr-1">Rekomendasi Kalori Harian: {{$bmiData->calorie}} cal</h6>
+                    </div>
                 </div>
             </div>
 
@@ -43,35 +46,118 @@
                     <div class="col-lg-6 col-12 mb-3">
                         <div class="card w-100 p-3" style="background-color: white; height: 100%">
                             <h6 class="mr-1 font-weight-bold">Rekomendasi Pola Makan</h6>
-                            <ul>
+                            <div>
                                 @php
                                     $eatRecommendation = json_decode($bmiData->eat_recommendation, true);
+                                    $eatRecommendation = nl2br($eatRecommendation);
                                 @endphp
                                 @if(is_array($eatRecommendation))
                                     @foreach($eatRecommendation as $recommendation)
-                                        <li>{{ $recommendation }}</li>
+                                        <div>{{ $recommendation }}</div>
                                     @endforeach
                                 @else
-                                    <li>{{ $bmiData->eat_recommendation }}</li>
+                                    <div>{!! nl2br(e($bmiData->eat_recommendation)) !!}</div>
                                 @endif
-                            </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-12 mb-3">
                         <div class="card w-100 p-3" style="background-color: white; height: 100%">
+                            <h6 class="mr-1 font-weight-bold">Rekomendasi Pola Tidur</h6>
+                            <div>
+                                @php
+                                    $sleepRecommendation = json_decode($bmiData->sleep_recommendation, true);
+                                    $sleepRecommendation = nl2br($sleepRecommendation);
+                                @endphp
+                                @if(is_array($sleepRecommendation))
+                                    @foreach($sleepRecommendation as $recommendation)
+                                        <div>{{ $recommendation }}</div>
+                                    @endforeach
+                                @else
+                                    <div>{!! nl2br(e($bmiData->sleep_recommendation)) !!}</div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-12 mb-3">
+                        <div class="card w-100 p-3" style="background-color: white; height: 100%">
+                            <h6 class="mr-1 font-weight-bold">Rekomendasi Makanan</h6>
+                            <div>
+                                @php
+                                    $eatPattern = json_decode($bmiData->eat_pattern, true);
+                                    $eatPattern = nl2br($eatPattern);
+                                @endphp
+                                @if(is_array($eatPattern))
+                                    @foreach($eatPattern as $recommendation)
+                                        <div>{{ $recommendation }}</div>
+                                    @endforeach
+                                @else
+                                    <div>{!! nl2br(e($bmiData->eat_pattern)) !!}</div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12 mb-3">
+                        <div class="card w-100 p-3" style="background-color: white; height: 100%">
+                            <h6 class="mr-1 font-weight-bold">Larangan Makanan</h6>
+                            <div>
+                                @php
+                                    $foodRestriction = json_decode($bmiData->food_restriction, true);
+                                    $foodRestriction = nl2br($foodRestriction);
+                                @endphp
+                                @if(is_array($foodRestriction))
+                                    @foreach($foodRestriction as $recommendation)
+                                        <div>{{ $recommendation }}</div>
+                                    @endforeach
+                                @else
+                                    <div>{!! nl2br(e($bmiData->food_restriction)) !!}</div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-12 mb-3">
+                        <div class="card w-100 p-3" style="background-color: white; height: 100%">
                             <h6 class="mr-1 font-weight-bold">Rekomendasi Aktivitas Fisik</h6>
-                            <ul>
+                            <div>
                                 @php
                                     $physicalActivity = json_decode($bmiData->physical_activity, true);
+                                    $physicalActivity = nl2br($physicalActivity);
                                 @endphp
                                 @if(is_array($physicalActivity))
                                     @foreach($physicalActivity as $recommendation)
-                                        <li>{{ $recommendation }}</li>
+                                        <div>{{ $recommendation }}</div>
                                     @endforeach
                                 @else
-                                    <li>{{ $bmiData->physical_activity }}</li>
+                                    <div>{!! nl2br(e($bmiData->physical_activity)) !!}</div>
                                 @endif
-                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12 mb-3">
+                        <div class="card w-100 p-3" style="background-color: white; height: 100%">
+                            <h6 class="mr-1 font-weight-bold">Rekomendasi Pola Aktivitas</h6>
+                            <div>
+                                @php
+                                    $activityPattern = json_decode($bmiData->activity_pattern, true);
+                                    $activityPattern = nl2br($activityPattern);
+                                @endphp
+                                @if(is_array($activityPattern))
+                                    @foreach($activityPattern as $recommendation)
+                                        <div>{{ $recommendation }}</div>
+                                    @endforeach
+                                @else
+                                    <div>{!! nl2br(e($bmiData->activity_pattern)) !!}</div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>

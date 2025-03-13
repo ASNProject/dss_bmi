@@ -35,20 +35,21 @@
             <div class="col-lg-6 col-12 mb-3">
                 <div class="card w-100 p-3" style="background-color: aliceblue; height: 100%">
                     <h4 class="font-weight-bold" style="font-size: 20px">Riwayat Penyakit</h4>
-                    <ul>
+                    <div>
                         @php
-                            $diseaseHistory = json_decode($data['disease_history'], true); // decode JSON string to array
+                            $diseaseHistory = json_decode($data['disease_histories'], true); // decode JSON string to array
                         @endphp
                         @if(is_array($diseaseHistory))
                             @foreach($diseaseHistory as $disease)
-                                <li> {{ $disease }}</li>
+                                <div>{{ $disease }}</div>
                             @endforeach
                         @else
-                            <li>{{ $data['disease_history'] }}</li>
+                            <div>{{ $data['disease_histories'] }}</div>
                         @endif
-                    </ul>
+                    </div>
                 </div>
             </div>
+            
             <div class="col-lg-6 col-12 mb-3">
                 <div class="card w-100 p-3" style="background-color: aliceblue; height: 100%">
                     <h4 class="font-weight-bold" style="font-size: 20px">Penyakit Saat Ini</h4>
@@ -61,39 +62,41 @@
             <div class="col-lg-6 col-12 mb-3">
                 <div class="card w-100 p-3" style="background-color: aliceblue; height: 100%">
                     <h4 class="font-weight-bold" style="font-size: 20px">Pola Makan</h4>
-                    <ul>
+                    <div>
                         @php
                             $eatRecommendation = json_decode($data['eat_recommendation'], true); // decode JSON string to array
+                            // Convert \n into <br> for HTML line breaks
+                            $eatRecommendation = nl2br($eatRecommendation);
                         @endphp
                         @if(is_array($eatRecommendation))
                             @foreach($eatRecommendation as $recommendation)
-                                <li> {{ $recommendation }}</li>
+                                <div>{{ $recommendation }}</div>
                             @endforeach
                         @else
-                            <li>{{ $data['eat_recommendation'] }}</li>
+                            <div>{!! nl2br(e($data['eat_recommendation'])) !!}</div>
                         @endif
-                    </ul>
+                    </div>
                 </div>
-            </div>
+            </div>       
             <div class="col-lg-6 col-12 mb-3">
                 <div class="card w-100 p-3" style="background-color: aliceblue; height: 100%">
                     <h4 class="font-weight-bold" style="font-size: 20px">Pola Tidur</h4>
-                    <ul>
-                        @php
-                            $sleepRecommendation = json_decode($data['sleep_recommendation'], true); // decode JSON string to array
-                        @endphp
-                        @if(is_array($sleepRecommendation))
-                            @foreach($sleepRecommendation as $recommendation)
-                                <li> {{ $recommendation }}</li>
-                            @endforeach
-                        @else
-                            <li>{{ $data['sleep_recommendation'] }}</li>
-                        @endif
-                    </ul>
+                    @php
+                        $sleepRecommendation = json_decode($data['sleep_recommendation'], true); // decode JSON string to array
+                        $sleepRecommendation = nl2br( $sleepRecommendation);
+                    @endphp
+                    @if(is_array($sleepRecommendation))
+                        @foreach($sleepRecommendation as $recommendation)
+                            <div> {{ $recommendation }}</div>
+                        @endforeach
+                    @else
+                        <div>{{ nl2br(e($data['sleep_recommendation']))}}</div>
+                    @endif
+                
                 </div>
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-12 mb-5">
             <a href="{{ route('dashboard') }}" class="btn btn-primary w-100">Selesai</a>
         </div>
     </div>

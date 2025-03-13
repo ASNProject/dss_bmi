@@ -30,5 +30,9 @@ class bmiData extends Model
         'eat_recommendation',
         'sleep_recommendation',
         'physical_activity',
+        'calorie',
+        'food_restriction',
+        'activity_pattern',
+        'eat_pattern',
     ];
 }
