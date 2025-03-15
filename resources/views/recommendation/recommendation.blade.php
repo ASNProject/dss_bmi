@@ -1,9 +1,67 @@
 @extends('layouts.app', ['title' => 'Rekomendasi Pola Kegiatan Harian'])
 @section('content')
+<head>
+    <style>
+        .navbar {
+            width: 100%;
+            background-color: #6f42c1;
+            padding: 15px 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 22px;
+        }
+        .navbar-nav {
+            margin: auto;
+        }
+        .logout-link {
+            margin-left: auto;
+            margin-right: 20px;
+        }
+        .container {
+            max-width: 100%;
+            margin-top: 80px;
+        }
+    </style>
+</head>
 <body>
-    <div class="container">
-        <div class="d-flex justify-content-between mb-3">
-            <a href="{{ route('dashboard') }}" class="text-dark" style="font-size: 1rem">Kembali</a>
+    <nav class="navbar navbar-expand-lg navbar-light w-100">
+        <div class="container-fluid">
+            <div>
+                <a class="navbar-brand" href="{{ route('dashboard') }}" style="font-size: 36px; color: white">Dashboard</a>
+                <h6 class="" style="margin-top: -10px; color: white">Monitoring kesehatan dan pola hidup Anda</h6>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link font-weight-bold" style="font-size: 18px; color: white" href="{{ route('analisis') }}">Analisis Berat Badan</a></li>
+                    <li class="nav-item"><a class="nav-link font-weight-bold" style="font-size: 18px; color: white" href="{{ route('measurement') }}">Monitoring Pola Hidup</a></li>
+                    <li class="nav-item"><a class="nav-link font-weight-bold" style="font-size: 18px; color: white" href="{{ route('recommendation') }}">Rekomendasi Kegiatan</a></li>
+                </ul>
+                <ul class="navbar-nav logout-link font-weight-bold">
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{{ route('logout') }}"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container p-5 mt-5">
+        <div class="d-flex justify-content-end mb-3">
+            {{-- <a href="{{ route('dashboard') }}" class="text-dark" style="font-size: 1rem">Kembali</a> --}}
             <div>
                 <form method="GET" action="{{ route('recommendation') }}" class="form-inline">
                     <div class="form-group mr-2">
@@ -40,8 +98,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="container">
+            <div class="container mt-1">
                 <div class="row">
                     <div class="col-lg-6 col-12 mb-3">
                         <div class="card w-100 p-3" style="background-color: white; height: 100%">
@@ -49,16 +106,16 @@
                             <div>
                                 @php
                                     $eatRecommendation = json_decode($bmiData->eat_recommendation, true);
-                                    $eatRecommendation = nl2br($eatRecommendation);
                                 @endphp
                                 @if(is_array($eatRecommendation))
                                     @foreach($eatRecommendation as $recommendation)
-                                        <div>{{ $recommendation }}</div>
+                                        <div>{!! nl2br($recommendation) !!}</div>
                                     @endforeach
                                 @else
-                                    <div>{!! nl2br(e($bmiData->eat_recommendation)) !!}</div>
+                                    <div>{!! nl2br($bmiData->eat_recommendation) !!}</div>
                                 @endif
                             </div>
+                            
                         </div>
                     </div>
                     <div class="col-lg-6 col-12 mb-3">
@@ -67,14 +124,13 @@
                             <div>
                                 @php
                                     $sleepRecommendation = json_decode($bmiData->sleep_recommendation, true);
-                                    $sleepRecommendation = nl2br($sleepRecommendation);
                                 @endphp
                                 @if(is_array($sleepRecommendation))
                                     @foreach($sleepRecommendation as $recommendation)
-                                        <div>{{ $recommendation }}</div>
+                                        <div>{!! nl2br($recommendation) !!}</div>
                                     @endforeach
                                 @else
-                                    <div>{!! nl2br(e($bmiData->sleep_recommendation)) !!}</div>
+                                    <div>{!! nl2br($bmiData->sleep_recommendation) !!}</div>
                                 @endif
                             </div>
                         </div>
@@ -82,7 +138,7 @@
                 </div>
             </div>
 
-            <div class="container">
+            <div class="container mt-1">
                 <div class="row">
                     <div class="col-lg-6 col-12 mb-3">
                         <div class="card w-100 p-3" style="background-color: white; height: 100%">
@@ -90,14 +146,13 @@
                             <div>
                                 @php
                                     $eatPattern = json_decode($bmiData->eat_pattern, true);
-                                    $eatPattern = nl2br($eatPattern);
                                 @endphp
                                 @if(is_array($eatPattern))
                                     @foreach($eatPattern as $recommendation)
-                                        <div>{{ $recommendation }}</div>
+                                        <div>{!! nl2br($recommendation) !!}</div>
                                     @endforeach
                                 @else
-                                    <div>{!! nl2br(e($bmiData->eat_pattern)) !!}</div>
+                                    <div>{!! nl2br($bmiData->eat_pattern) !!}</div>
                                 @endif
                             </div>
                         </div>
@@ -108,21 +163,20 @@
                             <div>
                                 @php
                                     $foodRestriction = json_decode($bmiData->food_restriction, true);
-                                    $foodRestriction = nl2br($foodRestriction);
                                 @endphp
                                 @if(is_array($foodRestriction))
                                     @foreach($foodRestriction as $recommendation)
-                                        <div>{{ $recommendation }}</div>
+                                        <div>{!! nl2br($recommendation) !!}</div>
                                     @endforeach
                                 @else
-                                    <div>{!! nl2br(e($bmiData->food_restriction)) !!}</div>
+                                    <div>{!! nl2br($bmiData->food_restriction) !!}</div>
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container mt-1">
                 <div class="row">
                     <div class="col-lg-6 col-12 mb-3">
                         <div class="card w-100 p-3" style="background-color: white; height: 100%">
@@ -130,14 +184,13 @@
                             <div>
                                 @php
                                     $physicalActivity = json_decode($bmiData->physical_activity, true);
-                                    $physicalActivity = nl2br($physicalActivity);
                                 @endphp
                                 @if(is_array($physicalActivity))
                                     @foreach($physicalActivity as $recommendation)
-                                        <div>{{ $recommendation }}</div>
+                                        <div>{!! nl2br($recommendation) !!}</div>
                                     @endforeach
                                 @else
-                                    <div>{!! nl2br(e($bmiData->physical_activity)) !!}</div>
+                                    <div>{!! nl2br($bmiData->physical_activity) !!}</div>
                                 @endif
                             </div>
                         </div>
@@ -148,14 +201,13 @@
                             <div>
                                 @php
                                     $activityPattern = json_decode($bmiData->activity_pattern, true);
-                                    $activityPattern = nl2br($activityPattern);
                                 @endphp
                                 @if(is_array($activityPattern))
                                     @foreach($activityPattern as $recommendation)
-                                        <div>{{ $recommendation }}</div>
+                                        <div>{!! nl2br($recommendation) !!}</div>
                                     @endforeach
                                 @else
-                                    <div>{!! nl2br(e($bmiData->activity_pattern)) !!}</div>
+                                    <div>{!! nl2br($bmiData->activity_pattern) !!}</div>
                                 @endif
                             </div>
                         </div>

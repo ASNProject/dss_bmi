@@ -1,11 +1,68 @@
 @extends('layouts.app', ['title' => 'Analisis Berat Badan dan Pola Hidup'])
 @section('content')
+<head>
+    <style>
+        .navbar {
+            width: 100%;
+            background-color: #007bff;
+            padding: 15px 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 22px;
+        }
+        .navbar-nav {
+            margin: auto;
+        }
+        .logout-link {
+            margin-left: auto;
+            margin-right: 20px;
+        }
+        .container {
+            max-width: 100%;
+            margin-top: 80px;
+        }
+    </style>
+</head>
 <body class="bg-white">
-    <div class="container">
-        <div class="d-flex justify-content-between mb-3">
-            <a href="{{ url()->previous() }}" class="text-dark" style="font-size: 1rem" >Kembali</a>
-            {{-- <a href="{{ route('logout') }}" class="text-dark" style="font-size: 0.75rem" >Logout</a> --}}
+    <nav class="navbar navbar-expand-lg navbar-light w-100">
+        <div class="container-fluid">
+            <div>
+                <a class="navbar-brand" href="{{ route('dashboard') }}" style="font-size: 36px; color: white">Dashboard</a>
+                <h6 class="" style="margin-top: -10px; color: white">Monitoring kesehatan dan pola hidup Anda</h6>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link font-weight-bold" style="font-size: 18px; color: white" href="{{ route('analisis') }}">Analisis Berat Badan</a></li>
+                    <li class="nav-item"><a class="nav-link font-weight-bold" style="font-size: 18px; color: white" href="{{ route('measurement') }}">Monitoring Pola Hidup</a></li>
+                    <li class="nav-item"><a class="nav-link font-weight-bold" style="font-size: 18px; color: white" href="{{ route('recommendation') }}">Rekomendasi Kegiatan</a></li>
+                </ul>
+                <ul class="navbar-nav logout-link font-weight-bold">
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{{ route('logout') }}"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
+    <div class="container p-5 mt-5">
+        {{-- <div class="d-flex justify-content-between mb-3">
+            <a href="{{ url()->previous() }}" class="text-dark" style="font-size: 1rem" >Kembali</a>
+        </div> --}}
         <div class="d-flex justify-content-center align-items-center py-8">
             <h3 class="font-weight-bold">Analisis Berat Badan dan Pola Hidup</h3>
         </div>
@@ -143,8 +200,30 @@
             <button type="submit" class="btn btn-primary w-100 text-white font-weight-bold">{{ __('Selesai') }}</button>
         </form>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+    
+            form.addEventListener("submit", function (event) {
+                event.preventDefault(); // Mencegah submit langsung
+    
+                Swal.fire({
+                    title: "Apakah Anda yakin?",
+                    text: "Pastikan semua data sudah benar sebelum dikirim.",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, submit!",
+                    cancelButtonText: "Batal"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Submit form jika dikonfirmasi
+                    }
+                });
+            });
+        });
+    </script>    
 </body>
-@push('scripts')
-    <script src="{{ asset('js/form-handler.js') }}"></script>
-@endpush
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
