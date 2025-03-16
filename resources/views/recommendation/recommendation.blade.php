@@ -94,7 +94,7 @@
                         <h6 style="color: deepskyblue">{{ $bmiData->bmi_category }} ({{ $bmiData->bmi }})</h6>
                     </div>
                     <div>
-                        <h6 class="mr-1">Rekomendasi Kalori Harian: {{$bmiData->calorie}} cal</h6>
+                        <h6 class="mr-1">Rekomendasi Kalori Harian: {{$bmiData->calorie}} kkal</h6>
                     </div>
                 </div>
             </div>

@@ -75,7 +75,7 @@
                     <h4 class="font-weight-bold" style="font-size: 20px">Index Masa Tubuh (BMI)</h4>
                     <h3 class="font-weight-bold" style="font-size: 38px; color: #1E97BFFF">{{ $data['bmi'] }}</h3>
                     <h7 style="font-size: 16px ">Kategori: {{ $data['bmi_category'] }}</h7>
-                    <h7 style="font-size: 16px; ">Range {{ $data['bmi_category']}}: {{ $data['range_category'] }}</h7>
+                    <h7 style="font-size: 16px; ">Kalori Harian: {{ $data['calorie']}} kkal</h7>
                 </div>
             </div>
             <div class="col-lg-6 col-12 mb-3">
