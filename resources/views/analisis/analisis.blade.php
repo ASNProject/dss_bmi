@@ -33,8 +33,8 @@
     <nav class="navbar navbar-expand-lg navbar-light w-100">
         <div class="container-fluid">
             <div>
-                <a class="navbar-brand" href="{{ route('dashboard') }}" style="font-size: 36px; color: white">Dashboard</a>
-                <h6 class="" style="margin-top: -10px; color: white">Monitoring kesehatan dan pola hidup Anda</h6>
+                <a class="navbar-brand" href="{{ route('dashboard') }}" style="font-size: 28px; color: white">Analisis Kesehatan</a>
+                <p class="" style="margin-top: -10px; color: white; font-size: 12px;">Laporkan berat badan dan pola hidup Anda</p>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -59,7 +59,7 @@
             </div>
         </div>
     </nav>
-    <div class="container p-5 mt-5">
+    <div class="container p- mt-8">
         {{-- <div class="d-flex justify-content-between mb-3">
             <a href="{{ url()->previous() }}" class="text-dark" style="font-size: 1rem" >Kembali</a>
         </div> --}}

@@ -5,8 +5,8 @@
         <div class="w-100" style="max-width: 400px">
             <h4 class="font-weight-bold d-flex justify-content-center">Registrasi</h4>
             <div class="d-flex justify-content-between mt-3">
-                <a href="{{route('login')}}" class="text-dark" style="font-size: 0.75rem">Login</a>
-                {{-- <a href="#" class="text-dark" style="font-size: 0.75rem">FORGOT PASSWORD?</a> --}}
+                <a href="{{route('login')}}" class="text-dark" style="font-size: 1rem">Login</a>
+                <a href="{{ route('password.request') }}" class="text-dark" style="font-size: 1rem">{{ __('Forgot Password?') }}</a>
             </div>
             <form action="{{ route('register.post') }}" method="POST" class="mt-3">
                 @csrf

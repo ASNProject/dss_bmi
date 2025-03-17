@@ -6,8 +6,8 @@
         <div class="w-100" style="max-width: 400px">
             <h4 class="font-weight-bold d-flex justify-content-center">Kalkulator Berat Badan Ideal</h4>
             <div class="d-flex justify-content-between mt-3">
-                <a href="{{route('register')}}" class="text-dark" style="font-size: 0.75rem">{{ __('Register') }}</a>
-                <a href="{{ route('password.request') }}" class="text-dark" style="font-size: 0.75rem">{{ __('Forgot Password?') }}</a>
+                <a href="{{route('register')}}" class="text-dark" style="font-size: 1rem">{{ __('Register') }}</a>
+                <a href="{{ route('password.request') }}" class="text-dark" style="font-size: 1rem">{{ __('Forgot Password?') }}</a>
             </div>
             <form action="{{ route('login.post') }}" method="POST" class="mt-3">
                 @csrf

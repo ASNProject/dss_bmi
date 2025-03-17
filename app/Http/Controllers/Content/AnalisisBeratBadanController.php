@@ -122,9 +122,26 @@ class AnalisisBeratBadanController extends Controller
 
             $sleepRecommendation = '';
             if ($age <= 40){
-                $sleepRecommendation = 'Waktu Tidur 7 sampai 8 Jam';
+                $sleepRecommendation = 'Waktu Tidur 7 sampai 8 Jam
+                Waktu tidur terbaik adalah sekitar pukul 10 malam hingga 6 pagi dari waktu tidur diatas Anda akan mendapatkan manfaat diantaranya adalah
+
+                Pemulihan fisik dan mental karena Tubuh memperbaiki sel-sel dan jaringan yang rusak saat tidur. Ini juga saat otak mengatur ulang diri, memproses memori, dan memperkuat koneksi saraf.\n
+                Kesehatan jantung karena Tidur yang cukup membantu menjaga tekanan darah normal dan kesehatan jantung.\n
+                
+                Meningkatkan fungsi imun karena Tidur yang baik meningkatkan daya tahan tubuh, membantu mencegah penyakit.\n
+                
+                Menjaga berat badan yang sehat karena Tidur yang cukup dapat mengatur hormon yang mengatur nafsu makan, membantu mencegah penambahan berat badan.\n
+                
+                Kesehatan mental karena Tidur yang cukup membantu menurunkan stres, kecemasan, dan depresi.';
             } else {
-                $sleepRecommendation = 'Waktu Tidur 6 sampai 8 Jam';
+                $sleepRecommendation = 'Waktu Tidur 6 sampai 8 Jam
+                Waktu tidur terbaik adalah sekitar pukul 10 malam hingga 6 pagi dari waktu tidur diatas Anda akan mendapatkan manfaat diantaranya adalah
+                
+                Meningkatkan Kesehatan Jantung karena Tidur yang cukup berperan penting dalam mengatur tekanan darah dan menjaga kesehatan jantung, mengurangi risiko penyakit jantung dan stroke.\n
+                
+                Kesehatan Mental yang Lebih Baik karena Tidur yang baik dapat membantu mengurangi gejala stres, kecemasan, dan depresi, yang mungkin lebih sering terjadi pada usia ini karena tuntutan pekerjaan atau kehidupan.\n
+                
+                Pemeliharaan Berat Badan karena Tidur yang cukup membantu mengatur hormon yang mengontrol rasa lapar dan metabolisme, yang sangat berguna untuk mencegah penambahan berat badan yang berhubungan dengan penuaan.';
             }
     
             // $sleepRecommendation = SleepRecommendation::where('bmi_category', $bmiCategory)->get();

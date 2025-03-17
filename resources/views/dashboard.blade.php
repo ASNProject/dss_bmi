@@ -78,11 +78,11 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
         <div class="container-fluid">
             <div>
-                <a class="navbar-brand" href="#" style="font-size: 36px">Dashboard</a>
+                <a class="navbar-brand" href="#" style="font-size: 36px">Beranda</a>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+            </button> --}}
             <div class="collapse navbar-collapse " id="navbarNav">
                 {{-- <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="{{ route('analisis') }}">Analisis Berat Badan</a></li>
@@ -117,8 +117,8 @@
                             </div>
                             <h5 class="card-title">Analisis Berat Badan dan Pola Hidup</h5> 
                         </div>
-                        <p class="card-text">Pantau berat badan dan analisis pola hidup Anda untuk mencapai kesehatan yang optimal.</p>
-                        <a href="{{ route('analisis') }}" class="btn btn-primary">Lihat Detail</a>
+                        <p class="card-text">Laporkan berat badan dan pola hidup Anda untuk mencapai kesehatan yang optimal.</p>
+                        <a href="{{ route('analisis') }}" class="btn btn-primary">Ketuk untuk memasukkan data</a>
                     </div>
                 </div>
             </div>
@@ -131,8 +131,8 @@
                             </div>
                             <h5 class="card-title">Monitoring Pola Hidup</h5>
                         </div>
-                        <p class="card-text">Monitoring aktivitas harian, pola makan, dan kebiasaan untuk meningkatkan kualitas hidup Anda.</p>
-                        <a href="{{ route('measurement') }}" class="btn btn-success">Lihat Detail</a>
+                        <p class="card-text">Monitoring tren kesehatan dan berat badan Anda.</p>
+                        <a href="{{ route('measurement') }}" class="btn btn-success">Ketuk untuk melihat tren</a>
                     </div>
                 </div>
             </div>
@@ -146,7 +146,7 @@
                             <h5 class="card-title">Rekomendasi Pola Kegiatan Harian</h5>
                         </div>
                         <p class="card-text">Dapatkan rekomendasi kegiatan harian yang disesuaikan dengan gaya hidup dan tujuan Anda.</p>
-                        <a href="{{ route('recommendation') }}" class="btn btn-purple">Lihat Detail</a>
+                        <a href="{{ route('recommendation') }}" class="btn btn-purple">Ketuk untuk melihat Rekomendasi</a>
                     </div>
                 </div>
             </div>

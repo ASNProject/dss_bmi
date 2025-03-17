@@ -9,7 +9,8 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
             <div class="d-flex justify-content-between mt-3">
-                <a href="{{route('login')}}" class="text-dark" style="font-size: 0.75rem">{{ __('Login') }}</a>
+                <a href="{{route('login')}}" class="text-dark" style="font-size: 1rem">{{ __('Login') }}</a>
+                <a href="{{route('register')}}" class="text-dark" style="font-size: 1rem">{{ __('Register') }}</a>
             </div>
             <form action="{{ route('password.email') }}" method="POST" class="mt-3">
                 @csrf
