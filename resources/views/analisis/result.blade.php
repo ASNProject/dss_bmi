@@ -153,6 +153,27 @@
                 
                 </div>
             </div>
+
+            {{-- <div class="col-lg-6 col-12 mb-3">
+    <div class="card w-100 p-3" style="background-color: aliceblue; height: 100%">
+        <h4 class="font-weight-bold" style="font-size: 20px">Rekomendasi Makanan Sesuai Penyakit</h4>
+        @php
+            $foodRecommendations = $data['food_restriction'];
+        @endphp
+        <div>{!! $foodRecommendations !!}</div>
+    </div>
+</div>
+
+<div class="col-lg-6 col-12 mb-3">
+    <div class="card w-100 p-3" style="background-color: aliceblue; height: 100%">
+        <h4 class="font-weight-bold" style="font-size: 20px">Rekomendasi Aktivitas Sesuai Penyakit</h4>
+        @php
+            $activityRecommendations = $data['activity_pattern'];
+        @endphp
+        <div>{!! $activityRecommendations !!}</div>
+    </div>
+</div> --}}
+
         </div>
         <div class="col-12 mb-5">
             <a href="{{ route('dashboard') }}" class="btn btn-primary w-100">Selesai</a>

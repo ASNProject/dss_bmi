@@ -64,7 +64,30 @@ class AnalisisBeratBadanController extends Controller
         if (Auth::check()){
             $height = $request->input('height');
             $weight = $request->input('weight');
-    
+            $diseases = $request->input('disease');
+            $diseaseString = is_array($diseases) ? implode(', ', $diseases) : $diseases;
+
+            $foodRestrictionRecommendations = '';
+            $activityPatternRecommendations = '';
+
+            if (is_array($diseases)) {
+                foreach ($diseases as $item) {
+                    $food = FoodRestrictions::where('disease', $item)->pluck('recommendation')->first();
+                    $activity = ActivityPattern::where('disease', $item)->pluck('activity')->first();
+
+                    $foodRestrictionRecommendations .= "<strong>Penyakit: $item</strong><br>" . ($food ?? 'Tidak ada rekomendasi') . "<br><br>";
+                    $activityPatternRecommendations .= "<strong>Penyakit: $item</strong><br>" . ($activity ?? 'Tidak ada rekomendasi') . "<br><br>";
+                }
+            } else {
+                // fallback jika hanya 1 string (tidak array)
+                $food = FoodRestrictions::where('disease', $disease)->pluck('recommendation')->first();
+                $activity = ActivityPattern::where('disease', $disease)->pluck('activity')->first();
+
+                $foodRestrictionRecommendations = $food ?? 'Tidak ada rekomendasi';
+                $activityPatternRecommendations = $activity ?? 'Tidak ada rekomendasi';
+            }
+
+
             $heightInMeter = $height/100;
             $bmi = $weight / ($heightInMeter * $heightInMeter);
     
@@ -125,21 +148,21 @@ class AnalisisBeratBadanController extends Controller
                 $sleepRecommendation = 'Waktu Tidur 7 sampai 8 Jam
                 Waktu tidur terbaik adalah sekitar pukul 10 malam hingga 6 pagi dari waktu tidur diatas Anda akan mendapatkan manfaat diantaranya adalah
 
-                Pemulihan fisik dan mental karena Tubuh memperbaiki sel-sel dan jaringan yang rusak saat tidur. Ini juga saat otak mengatur ulang diri, memproses memori, dan memperkuat koneksi saraf.\n
-                Kesehatan jantung karena Tidur yang cukup membantu menjaga tekanan darah normal dan kesehatan jantung.\n
+                Pemulihan fisik dan mental karena Tubuh memperbaiki sel-sel dan jaringan yang rusak saat tidur. Ini juga saat otak mengatur ulang diri, memproses memori, dan memperkuat koneksi saraf.
+                Kesehatan jantung karena Tidur yang cukup membantu menjaga tekanan darah normal dan kesehatan jantung.
                 
-                Meningkatkan fungsi imun karena Tidur yang baik meningkatkan daya tahan tubuh, membantu mencegah penyakit.\n
+                Meningkatkan fungsi imun karena Tidur yang baik meningkatkan daya tahan tubuh, membantu mencegah penyakit.
                 
-                Menjaga berat badan yang sehat karena Tidur yang cukup dapat mengatur hormon yang mengatur nafsu makan, membantu mencegah penambahan berat badan.\n
+                Menjaga berat badan yang sehat karena Tidur yang cukup dapat mengatur hormon yang mengatur nafsu makan, membantu mencegah penambahan berat badan.
                 
                 Kesehatan mental karena Tidur yang cukup membantu menurunkan stres, kecemasan, dan depresi.';
             } else {
                 $sleepRecommendation = 'Waktu Tidur 6 sampai 8 Jam
                 Waktu tidur terbaik adalah sekitar pukul 10 malam hingga 6 pagi dari waktu tidur diatas Anda akan mendapatkan manfaat diantaranya adalah
                 
-                Meningkatkan Kesehatan Jantung karena Tidur yang cukup berperan penting dalam mengatur tekanan darah dan menjaga kesehatan jantung, mengurangi risiko penyakit jantung dan stroke.\n
+                Meningkatkan Kesehatan Jantung karena Tidur yang cukup berperan penting dalam mengatur tekanan darah dan menjaga kesehatan jantung, mengurangi risiko penyakit jantung dan stroke.
                 
-                Kesehatan Mental yang Lebih Baik karena Tidur yang baik dapat membantu mengurangi gejala stres, kecemasan, dan depresi, yang mungkin lebih sering terjadi pada usia ini karena tuntutan pekerjaan atau kehidupan.\n
+                Kesehatan Mental yang Lebih Baik karena Tidur yang baik dapat membantu mengurangi gejala stres, kecemasan, dan depresi, yang mungkin lebih sering terjadi pada usia ini karena tuntutan pekerjaan atau kehidupan.
                 
                 Pemeliharaan Berat Badan karena Tidur yang cukup membantu mengatur hormon yang mengontrol rasa lapar dan metabolisme, yang sangat berguna untuk mencegah penambahan berat badan yang berhubungan dengan penuaan.';
             }
@@ -153,14 +176,14 @@ class AnalisisBeratBadanController extends Controller
             ->pluck('recommendation')
             ->first();
 
-            $disease = $request->input('disease');
-            $foodRestrictionRecommendations = FoodRestrictions::where('disease', $disease)
-            ->pluck('recommendation')
-            ->first();
+            // $disease = $request->input('disease');
+            // $foodRestrictionRecommendations = FoodRestrictions::where('disease', $disease)
+            // ->pluck('recommendation')
+            // ->first();
             
-            $activityPatternRecommendations = ActivityPattern::where('disease', $disease)
-            ->pluck('activity')
-            ->first();
+            // $activityPatternRecommendations = ActivityPattern::where('disease', $disease)
+            // ->pluck('activity')
+            // ->first();
 
             $eatPatternRecommendation = EatPattern::where('bmi_category', $bmiCategory)
             ->pluck('recommendation')
@@ -209,7 +232,7 @@ class AnalisisBeratBadanController extends Controller
                 'gender' => $request->input('gender'),
                 // 'disease_history' => $diseaseHistoryData->isNotEmpty() ? $diseaseHistoryData : 'Tidak ada riwayat penyakit',
                 'disease_histories' => $request->input('disease_history'),
-                'disease' => $request->input('disease'),
+                'disease' => $diseaseString,
                 // 'eating_habits' => $eatingHabitData->isNotEmpty() ? $eatingHabitData : 'Tidak ada kebiasaan makan',
                 'eating_habits' => $request->input('eating_habit'),
                 // 'sleep_patterns' => $sleepPatternData->isNotEmpty() ? $sleepPatternData : 'Tidak ada pola tidur',
@@ -234,7 +257,7 @@ class AnalisisBeratBadanController extends Controller
                 'age' => $request->input('age'),
                 'gender' => $request->input('gender'),
                 'disease_histories' => $request->input('disease_history'),
-                'disease' => $request->input('disease'),
+                'disease' => $diseaseString,
                 'eating_habits' => $request->input('eating_habit'),
                 'sleep_patterns' => $request->input('sleep_pattern'),
                 'bmi' => round($bmi, 2),

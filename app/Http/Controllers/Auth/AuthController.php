@@ -64,16 +64,22 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
         $data = $request->all();
         $user = $this->create($data);
 
-        Auth::login($user);
+        if (!$user) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Nama atau email sudah digunakan. Silakan gunakan yang lain.');
+        }
 
-        return redirect("dashboard")->withSuccess('Registrasi Berhasil');
+        Auth::login($user);
+        return redirect("dashboard")->with('success', 'Registrasi Berhasil');
+
     }
 
     /**
@@ -97,6 +103,9 @@ class AuthController extends Controller
      */
     public function create(array $data)
     {
+        if (User::where('email', $data['email'])->exists() || User::where('name', $data['name'])->exists()){
+            return null;
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

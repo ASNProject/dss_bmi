@@ -135,10 +135,9 @@
                 <ul id="selectedDiseasesList"></ul>
             </div> --}}
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <h6>Penyakit Saat Ini</h6>
-                {{-- <textarea class="form-control @error('disease') is-invalid @enderror" name="disease" id="disease" placeholder="Tuliskan kondisi kesehatan saat ini" rows="4" required></textarea> --}}
-                <select name="disease" id="disease" class="form-control @error('disease') is-invalid @enderror">
+                <select name="disease[]" id="disease" multiple class="form-control @error('disease') is-invalid @enderror">
                     <option value="" disabled selected>Pilih riwayat penyakit yang pernah dialami</option>
                     @foreach ($diseases as $disease)
                         <option value="{{ $disease->disease }}">{{ $disease->disease }}</option>
@@ -149,7 +148,21 @@
                         {{ $message }}
                     </div>    
                 @enderror
+            </div> --}}
+            <div class="form-group">
+                <h6>Penyakit Saat Ini</h6>
+                <select class="form-control select2" name="disease[]" multiple>
+                    @foreach ($diseases as $disease)
+                        <option value="{{ $disease->disease }}">{{ $disease->disease }}</option>
+                    @endforeach
+                </select>
+                @error('disease')
+                    <div class="alert alert-danger mt-2">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
+
             <div class="form-group">
                 <h6>Pola Makan</h6>
                 <select name="eating_habit" id="eating_habit" class="form-control @error('eating_habit') is-invalid @enderror" required>
@@ -223,7 +236,17 @@
                 });
             });
         });
-    </script>    
+    </script>   
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Pilih penyakit...",
+            allowClear: true
+        });
+    });
+</script> 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 @endsection
