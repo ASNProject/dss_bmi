@@ -143,21 +143,70 @@
                 </table>
             </div>
         </div>
-        <div class="col-12 mb-5">
-            <div class="card w-100 p-3" style="background-color: aliceblue; height: 100%">
-                <div>
-                    <h4 class="font-weight-bold mb-3" style="font-size: 20px">Ringkasan Mingguan</h4>
-                </div>
-                <div class="d-flex justify-content-between mb-3">
+        <div class="row mb-5">
+
+            <!-- Ringkasan Mingguan -->
+            <div class="col-md-6 mb-2">
+                <div class="card w-100 p-3" style="background-color: aliceblue; height: 100%">
                     <div>
-                        <h6 style="font-size: 16px">Total {{$data['title']}} Berat: {{ number_format(abs($data['totalWeightLoss']), 1) }} kg</h6>
-                        <h6 style="font-size: 16px">{{$data['title']}} BMI: {{ number_format(abs($data['totalBmiLoss']), 2) }} poin</h6>
+                        <h4 class="font-weight-bold mb-3" style="font-size: 20px">
+                            Ringkasan Mingguan
+                        </h4>
                     </div>
-                    <div>
-                        <h6 style="font-size: 16px">Tren: {{ $data['trend'] }}</h6>
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <h6 style="font-size: 16px">
+                                Total {{$data['title']}} Berat:
+                                {{ number_format(abs($data['totalWeightLoss']), 1) }} kg
+                            </h6>
+
+                            <h6 style="font-size: 16px">
+                                {{$data['title']}} BMI:
+                                {{ number_format(abs($data['totalBmiLoss']), 2) }} poin
+                            </h6>
+                        </div>
+
+                        <div>
+                            <h6 style="font-size: 16px">
+                                Tren: {{ $data['trend'] }}
+                            </h6>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Ringkasan Bulanan -->
+            <div class="col-md-6 mb-2">
+                <div class="card w-100 p-3" style="background-color: #f4f9ff; height: 100%">
+                    <div>
+                        <h4 class="font-weight-bold mb-3" style="font-size: 20px">
+                            Ringkasan Bulanan
+                        </h4>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <h6 style="font-size: 16px">
+                                Total {{$data['monthlyTitle']}} Berat:
+                                {{ number_format(abs($data['monthlyWeightLoss']), 1) }} kg
+                            </h6>
+
+                            <h6 style="font-size: 16px">
+                                {{$data['monthlyTitle']}} BMI:
+                                {{ number_format(abs($data['monthlyBmiLoss']), 2) }} poin
+                            </h6>
+                        </div>
+
+                        <div>
+                            <h6 style="font-size: 16px">
+                                Tren: {{ $data['monthlyTrend'] }}
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>

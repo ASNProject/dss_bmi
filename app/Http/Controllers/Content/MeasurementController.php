@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\bmiData;
+use Carbon\Carbon;
 
 
 class MeasurementController extends Controller
@@ -65,6 +66,41 @@ class MeasurementController extends Controller
                 }
             }
 
+            // Ringkasan Bulanan
+            $monthlyRecords = bmiData::where('user_name', $userName)
+                ->where('created_at', '>=', Carbon::now()->subDays(30))
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $monthlyWeightLoss = 0;
+            $monthlyBmiLoss = 0;
+            $monthlyTrend = "Belum ada pembanding";
+            $monthlyTitle = "";
+
+            if ($monthlyRecords->count() > 1) {
+
+                $firstWeightMonth = $monthlyRecords->first()->weight;
+                $lastWeightMonth = $monthlyRecords->last()->weight;
+
+                $monthlyWeightLoss = $firstWeightMonth - $lastWeightMonth;
+
+                $firstBmiMonth = $monthlyRecords->first()->bmi;
+                $lastBmiMonth = $monthlyRecords->last()->bmi;
+
+                $monthlyBmiLoss = $firstBmiMonth - $lastBmiMonth;
+
+                if ($firstWeightMonth > $lastWeightMonth && $firstBmiMonth > $lastBmiMonth) {
+                    $monthlyTrend = "Peningkatan Berat Badan";
+                    $monthlyTitle = "Peningkatan";
+                } elseif ($firstWeightMonth < $lastWeightMonth && $firstBmiMonth < $lastBmiMonth) {
+                    $monthlyTrend = "Penurunan Berat Badan";
+                    $monthlyTitle = "Penurunan";
+                } else {
+                    $monthlyTrend = "Tidak Ada Tren Jelas";
+                    $monthlyTitle = "Tidak Jelas";
+                }
+            }
+
             $data = [
                 'dates' => $bmiRecords->pluck('created_at')->map(fn($date) => $date->format('Y-m-d'))->toArray(),
                 'bmi' => $bmiRecords->pluck('bmi')->toArray(),
@@ -80,6 +116,10 @@ class MeasurementController extends Controller
                 'food_restriction' => $bmiRecords->pluck('food_restriction')->first(),
                 'sleep_recommendation' => $bmiRecords->pluck('sleep_recommendation')->first(),
                 'calorie' => $bmiRecords->pluck('calorie')->first(),
+                'monthlyWeightLoss' => $monthlyWeightLoss,
+                'monthlyBmiLoss' => $monthlyBmiLoss,
+                'monthlyTrend' => $monthlyTrend,
+                'monthlyTitle' => $monthlyTitle,
             ];
             return view('measurement.measurement', compact('data', 'bmiRecords'));
         }

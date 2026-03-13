@@ -122,7 +122,7 @@
                         <option value="{{ $disease->id }}">{{ $disease->disease }}</option>
                     @endforeach
                 </select>                 --}}
-                <textarea class="form-control @error('disease_history') is-invalid @enderror" name="disease_history" id="disease_history" placeholder="Tuliskan riwayat penyakit" rows="4"></textarea>
+                <textarea class="form-control @error('disease_history') is-invalid @enderror" name="disease_history" id="disease_history" placeholder="Tuliskan riwayat penyakit. Jika tidak memiliki riwayat penyakit kosongkan saja" rows="4"></textarea>
                 @error('disease_history')
                     <div class="alert alert-danger mt-2">
                         {{ $message }}

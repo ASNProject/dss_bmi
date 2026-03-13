@@ -64,13 +64,16 @@ class AnalisisBeratBadanController extends Controller
         if (Auth::check()){
             $height = $request->input('height');
             $weight = $request->input('weight');
-            $diseases = $request->input('disease');
+            $diseases = $request->input('disease', []);
             $diseaseString = is_array($diseases) ? implode(', ', $diseases) : $diseases;
 
-            $foodRestrictionRecommendations = '';
-            $activityPatternRecommendations = '';
+            $foodRestrictionRecommendations = $food ?? 'Tidak ada rekomendasi';
+            $activityPatternRecommendations = $activity ?? 'Tidak ada rekomendasi';
 
-            if (is_array($diseases)) {
+            if (!empty($disease) && is_array($diseases)) {
+                $foodRestrictionRecommendations = '';
+                $activityPatternRecommendations = '';
+
                 foreach ($diseases as $item) {
                     $food = FoodRestrictions::where('disease', $item)->pluck('recommendation')->first();
                     $activity = ActivityPattern::where('disease', $item)->pluck('activity')->first();
@@ -79,12 +82,26 @@ class AnalisisBeratBadanController extends Controller
                     $activityPatternRecommendations .= "<strong>Penyakit: $item</strong><br>" . ($activity ?? 'Tidak ada rekomendasi') . "<br><br>";
                 }
             } else {
-                // fallback jika hanya 1 string (tidak array)
-                $food = FoodRestrictions::where('disease', $disease)->pluck('recommendation')->first();
-                $activity = ActivityPattern::where('disease', $disease)->pluck('activity')->first();
 
-                $foodRestrictionRecommendations = $food ?? 'Tidak ada rekomendasi';
-                $activityPatternRecommendations = $activity ?? 'Tidak ada rekomendasi';
+                if(!empty($diseases)){
+
+                    $food = FoodRestrictions::where('disease', $diseases)
+                        ->pluck('recommendation')
+                        ->first();
+
+                    $activity = ActivityPattern::where('disease', $diseases)
+                        ->pluck('activity')
+                        ->first();
+
+                    $foodRestrictionRecommendations = $food ?? 'Tidak ada rekomendasi';
+                    $activityPatternRecommendations = $activity ?? 'Tidak ada rekomendasi';
+
+                } else {
+
+                    $foodRestrictionRecommendations = 'Tidak ada rekomendasi';
+                    $activityPatternRecommendations = 'Tidak ada rekomendasi';
+
+                }
             }
 
 
